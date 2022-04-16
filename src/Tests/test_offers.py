@@ -1,4 +1,4 @@
-from bins.GenerateBill import GenerateBill
+from src.bins.GenerateBill import GenerateBill
 
 def test_offers_case1():
     cart_items = {

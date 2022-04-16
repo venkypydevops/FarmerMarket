@@ -5,7 +5,7 @@ purpose: Initial wrapper where customer can order his requirements
 ## TODO: Include pyInquirer and generate bill when each item got added instantly..
 import argparse
 
-from bins.GenerateBill import GenerateBill
+from src.bins.GenerateBill import GenerateBill
 
 if __name__ == '__main__':
     print("###################          Welcome to Farmer's Market             ####################\n"

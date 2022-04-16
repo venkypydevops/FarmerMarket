@@ -1,4 +1,4 @@
-from conf.Products import Products
+from src.conf.Products import Products
 from tabulate import tabulate
 
 class GenerateBill():
