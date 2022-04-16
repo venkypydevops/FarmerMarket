@@ -70,7 +70,7 @@ class GenerateBill():
             if self.cart_items['Oatmeal']['count']:
                 for om in range(1,self.cart_items['Oatmeal']['count']+1):
                     billing_data.append([self.products['Oatmeal']['code'], '', self.products['Oatmeal']['cost']])
-                    if APOM:
+                    if APOM and self.cart_items['Apples']['count']>0:
                         AP1_cost = self.cart_items['Apples']['count'] * 4.50 if APPL else self.cart_items['Apples'][
                                                                                               'count'] * \
                                                                                           self.products['Apples']['cost']
