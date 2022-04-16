@@ -13,16 +13,3 @@ class Products:
             "Oatmeal": dict({"code": "OM1", "cost": 3.69})
         }
         return Products
-
-
-
-# obj = Products()._get_product_details()
-# obj._get_product_details()
-#
-# from enum import Enum
-#
-# class ProductsCode(Enum):
-#     Chai, Apples, Coffee, Milk, Oatmeal = "CH1", "AP1", "CF1", "MK1", "OM1"
-#
-# class ProductsCost(Enum):
-#
