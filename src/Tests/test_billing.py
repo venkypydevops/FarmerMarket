@@ -1,67 +1,80 @@
 from src.bins.GenerateBill import GenerateBill
+from src.conf.Products import Products
 
 def test_billing_case1():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 1}),
-        "Apples": dict({"code": "AP1", "count": 3}),
-        "Coffee": dict({"code": "CF1", "count": 0}),
-        "Milk": dict({"code": "MK1", "count": 1}),
-        "Oatmeal": dict({"code": "OM1", "count": 0})
+    products = Products()
+    cart_counts = {
+        "Chai": 1,
+        "Apples": 3,
+        "Coffee":0,
+        "Milk": 1,
+        "Oatmeal": 0
     }
-    gt, totalbill = GenerateBill(cart_items).return_current_cart_bill()
+    products._set_cart_items_count(cart_counts)
+    gt, totalbill = GenerateBill().return_current_cart_bill()
     assert gt == 16.61
 
 def test_billing_case2():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 1}),
-        "Apples": dict({"code": "AP1", "count": 1}),
-        "Coffee": dict({"code": "CF1", "count": 1}),
-        "Milk": dict({"code": "MK1", "count": 1}),
-        "Oatmeal": dict({"code": "OM1", "count": 0})
+    products = Products()
+    cart_counts = {
+        "Chai": 1,
+        "Apples": 1,
+        "Coffee":1,
+        "Milk": 1,
+        "Oatmeal": 0
     }
-    gt, totalbill = GenerateBill(cart_items).return_current_cart_bill()
+    products._set_cart_items_count(cart_counts)
+    gt, totalbill = GenerateBill().return_current_cart_bill()
     assert gt == 20.34
 
 def test_billing_case3():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 0}),
-        "Apples": dict({"code": "AP1", "count": 1}),
-        "Coffee": dict({"code": "CF1", "count": 0}),
-        "Milk": dict({"code": "MK1", "count": 1}),
-        "Oatmeal": dict({"code": "OM1", "count": 0})
+    products = Products()
+    cart_counts = {
+        "Chai": 0,
+        "Apples": 1,
+        "Coffee":0,
+        "Milk": 1,
+        "Oatmeal": 0
     }
-    gt, totalbill = GenerateBill(cart_items).return_current_cart_bill()
+    products._set_cart_items_count(cart_counts)
+    gt, totalbill = GenerateBill().return_current_cart_bill()
     assert gt == 10.75
 
 def test_billing_case4():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 0}),
-        "Apples": dict({"code": "AP1", "count": 0}),
-        "Coffee": dict({"code": "CF1", "count": 2}),
-        "Milk": dict({"code": "MK1", "count": 0}),
-        "Oatmeal": dict({"code": "OM1", "count": 0})
+    products = Products()
+    cart_counts = {
+        "Chai": 0,
+        "Apples": 0,
+        "Coffee":2,
+        "Milk": 0,
+        "Oatmeal": 0
     }
-    gt, totalbill = GenerateBill(cart_items).return_current_cart_bill()
+    products._set_cart_items_count(cart_counts)
+    gt, totalbill = GenerateBill().return_current_cart_bill()
     assert gt == 11.23
 
 def test_billing_case5():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 1}),
-        "Apples": dict({"code": "AP1", "count": 3}),
-        "Coffee": dict({"code": "CF1", "count": 0}),
-        "Milk": dict({"code": "MK1", "count": 0}),
-        "Oatmeal": dict({"code": "OM1", "count": 0})
+    products = Products()
+    cart_counts = {
+        "Chai": 1,
+        "Apples": 3,
+        "Coffee":0,
+        "Milk": 0,
+        "Oatmeal": 0
     }
-    gt, totalbill = GenerateBill(cart_items).return_current_cart_bill()
+    products._set_cart_items_count(cart_counts)
+    gt, totalbill = GenerateBill().return_current_cart_bill()
     assert gt == 16.61
 
 def test_billing_case6():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 1}),
-        "Apples": dict({"code": "AP1", "count": 5}),
-        "Coffee": dict({"code": "CF1", "count": 5}),
-        "Milk": dict({"code": "MK1", "count": 3}),
-        "Oatmeal": dict({"code": "OM1", "count": 2})
+    products = Products()
+    cart_counts = {
+        "Chai": 1,
+        "Apples": 5,
+        "Coffee":5,
+        "Milk": 3,
+        "Oatmeal": 2
     }
-    gt, totalbill = GenerateBill(cart_items).return_current_cart_bill()
+    products._set_cart_items_count(cart_counts)
+    gt, totalbill = GenerateBill().return_current_cart_bill()
     assert gt == 64.93
