@@ -1,33 +1,49 @@
-from src.conf.Products import Products
+import logging
+import traceback
+
+from conf.Products import Products
 from tabulate import tabulate
 
 class GenerateBill():
-    def __init__(self, cart_items):
-        self.cart_items = cart_items
-        self.products = Products()._get_product_details()
+    """
+    Purpose: GenerateBill generates the bill for the cart-items ordered by the customer
+    """
+    def __init__(self):
+        self.prods = Products()
+
+    def _update_products_with_count(self, cart_counts):
+        """
+        :param cart_counts: cart counts need to be updated
+        :return: updated Products
+        """
+        try:
+            self.prods._set_cart_items_count(cart_counts)
+        except Exception as E:
+            logging.debug(traceback.print_exc())
+            logging.info('** Caught exception : ' + str(E))
 
     def get_offers(self):
         """
         :return: Return the applied offers
         """
-        print(self.cart_items)
         BOGO, APPL, CHMK, APOM = 0,0,0,0
         try:
             # 1. BOGO -- Buy-One-Get-One-Free Special on Coffee. (Unlimited)
-            BOGO = 1 if self.cart_items['Coffee']['count'] > 1 else 0
-
+            BOGO = 1 if self.prods._get_coffee_count() > 1 else 0
 
             # 2. APPL -- If you buy 3 or more bags of Apples, the price drops to $4.50.
-            APPL = 1 if self.cart_items['Apples']['count'] > 2 else 0
+            APPL = 1 if self.prods._get_apples_count() > 2 else 0
 
             # 3. CHMK -- Purchase a box of Chai and get milk free. (Limit 1)
-            CHMK = 1 if self.cart_items['Chai']['count'] > 0 else 0
+            CHMK = 1 if self.prods._get_chai_count() > 0 else 0
 
             # 4. APOM -- Purchase a bag of Oatmeal and get 50% off a bag of Apples
-            APOM = 1 if self.cart_items['Oatmeal']['count'] > 0 else 0
+            APOM = 1 if self.prods._get_oatmeal_count() > 0 else 0
+
 
         except Exception as E:
-            print(E)
+            logging.debug(traceback.print_exc())
+            logging.info('** Caught exception : ' + str(E))
 
         finally:
             return BOGO, APPL, CHMK, APOM
@@ -42,38 +58,38 @@ class GenerateBill():
         headers = ['Item', 'OFFER', 'price']
 
         try:
-            if self.cart_items['Coffee']['count']:
-                for cf in range(1,self.cart_items['Coffee']['count']+1):
-                    billing_data.append([self.products['Coffee']['code'], '', self.products['Coffee']['cost']])
+            if self.prods._get_coffee_count():
+                for cf in range(1,self.prods._get_coffee_count()+1):
+                    billing_data.append([self.prods._get_coffee_code(), '', self.prods._get_coffee_cost()])
                     # To apply the BOGO offer
                     if cf%2 == 0:
-                        billing_data.append(['', 'BOGO', self.products['Coffee']['cost']*-1])
+                        billing_data.append(['', 'BOGO', self.prods._get_coffee_cost()*-1])
 
-            if self.cart_items['Apples']['count']:
-                for ap in range(1,self.cart_items['Apples']['count']+1):
-                    billing_data.append([self.products['Apples']['code'], '', self.products['Apples']['cost']])
+            if self.prods._get_apples_count():
+                for ap in range(1,self.prods._get_apples_count()+1):
+                    billing_data.append([self.prods._get_apples_code(), '', self.prods._get_apples_cost()])
                     if APPL:
                         billing_data.append(['', 'APPL', -1.5])
 
-            if self.cart_items['Chai']['count']:
-                for ch in range(1,self.cart_items['Chai']['count']+1):
-                    billing_data.append([self.products['Chai']['code'], '', self.products['Chai']['cost']])
+            if self.prods._get_chai_count():
+                for ch in range(1,self.prods._get_chai_count()+1):
+                    billing_data.append([self.prods._get_chai_code(), '', self.prods._get_chai_cost()])
 
-            if self.cart_items['Milk']['count']:
-                for mk in range(1,self.cart_items['Milk']['count']+1):
-                    billing_data.append([self.products['Milk']['code'], '', self.products['Milk']['cost']])
+            if self.prods._get_milk_count():
+                for mk in range(1,self.prods._get_milk_count()+1):
+                    billing_data.append([self.prods._get_milk_code(), '', self.prods._get_milk_cost()])
                     ## CHMK is used only once per bill - So, once consumed make the offer disable for current bill
                     if CHMK:
-                        billing_data.append(['', 'CHMK', self.products['Milk']['cost']*-1])
+                        billing_data.append(['', 'CHMK', self.prods._get_milk_cost()*-1])
                         CHMK = 0
 
-            if self.cart_items['Oatmeal']['count']:
-                for om in range(1,self.cart_items['Oatmeal']['count']+1):
-                    billing_data.append([self.products['Oatmeal']['code'], '', self.products['Oatmeal']['cost']])
-                    if APOM and self.cart_items['Apples']['count']>0:
-                        AP1_cost = self.cart_items['Apples']['count'] * 4.50 if APPL else self.cart_items['Apples'][
-                                                                                              'count'] * \
-                                                                                          self.products['Apples']['cost']
+            if self.prods._get_oatmeal_count():
+                for om in range(1,self.prods._get_oatmeal_count()+1):
+                    billing_data.append([self.prods._get_oatmeal_code(), '', self.prods._get_oatmeal_cost()])
+                    if APOM and self.prods._get_apples_count()>0:
+                        if APPL:
+                            self.prods._set_apples_cost(4.50)
+                        AP1_cost = self.prods._get_apples_count() * self.prods._get_apples_cost()
                         billing_data.append(['', 'APOM', (AP1_cost/2) * -1])
                         ## Disable APOM offer once 50% discount applied on apples
                         APOM = 0
@@ -82,8 +98,10 @@ class GenerateBill():
             billing_data.append([':-----------', '--------', '--------:'])
             billing_data.append(['Grand-Total', '', grandtotal])
 
+
         except Exception as E:
-            print(E)
+            logging.debug(traceback.print_exc())
+            logging.info('** Caught exception : ' + str(E))
 
         finally:
             return grandtotal, tabulate(billing_data, headers=headers, tablefmt='pipe')
