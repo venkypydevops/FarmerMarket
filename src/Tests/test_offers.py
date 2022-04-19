@@ -1,14 +1,17 @@
 from src.bins.GenerateBill import GenerateBill
+from src.conf.Products import Products
 
 def test_offers_case1():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 2}),
-        "Apples": dict({"code": "AP1", "count": 4}),
-        "Coffee": dict({"code": "CF1", "count": 2}),
-        "Milk": dict({"code": "MK1", "count": 0}),
-        "Oatmeal": dict({"code": "OM1", "count": 1})
+    products = Products()
+    cart_counts = {
+        "Chai": 2,
+        "Apples": 4,
+        "Coffee": 2,
+        "Milk": 0,
+        "Oatmeal": 1
     }
-    BOGO, APPL, CHMK, APOM = GenerateBill(cart_items).get_offers()
+    products._set_cart_items_count(cart_counts)
+    BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
     print(BOGO, APPL, CHMK, APOM)
     assert APPL == 1
     assert BOGO == 1
@@ -16,14 +19,16 @@ def test_offers_case1():
     assert APOM == 1
 
 def test_offers_case2():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 0}),
-        "Apples": dict({"code": "AP1", "count": 2}),
-        "Coffee": dict({"code": "CF1", "count": 1}),
-        "Milk": dict({"code": "MK1", "count": 0}),
-        "Oatmeal": dict({"code": "OM1", "count": 0})
+    products = Products()
+    cart_counts = {
+        "Chai": 0,
+        "Apples": 2,
+        "Coffee": 1,
+        "Milk": 0,
+        "Oatmeal": 0
     }
-    BOGO, APPL, CHMK, APOM = GenerateBill(cart_items).get_offers()
+    products._set_cart_items_count(cart_counts)
+    BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
     print(BOGO, APPL, CHMK, APOM)
     assert APPL == 0
     assert BOGO == 0
@@ -31,14 +36,16 @@ def test_offers_case2():
     assert APOM == 0
 
 def test_offers_case3():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 1}),
-        "Apples": dict({"code": "AP1", "count": 2}),
-        "Coffee": dict({"code": "CF1", "count": 0}),
-        "Milk": dict({"code": "MK1", "count": 2}),
-        "Oatmeal": dict({"code": "OM1", "count": 1})
+    products = Products()
+    cart_counts = {
+        "Chai": 1,
+        "Apples": 2,
+        "Coffee": 0,
+        "Milk": 2,
+        "Oatmeal": 1
     }
-    BOGO, APPL, CHMK, APOM = GenerateBill(cart_items).get_offers()
+    products._set_cart_items_count(cart_counts)
+    BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
     print(BOGO, APPL, CHMK, APOM)
     assert APPL == 0
     assert BOGO == 0
@@ -46,14 +53,16 @@ def test_offers_case3():
     assert APOM == 1
 
 def test_offers_case4():
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": 0}),
-        "Apples": dict({"code": "AP1", "count": 10}),
-        "Coffee": dict({"code": "CF1", "count": 5}),
-        "Milk": dict({"code": "MK1", "count": 2}),
-        "Oatmeal": dict({"code": "OM1", "count": 0})
+    products = Products()
+    cart_counts = {
+        "Chai": 0,
+        "Apples": 10,
+        "Coffee": 5,
+        "Milk": 2,
+        "Oatmeal": 0
     }
-    BOGO, APPL, CHMK, APOM = GenerateBill(cart_items).get_offers()
+    products._set_cart_items_count(cart_counts)
+    BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
     print(BOGO, APPL, CHMK, APOM)
     assert APPL == 1
     assert BOGO == 1
