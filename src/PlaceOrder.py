@@ -5,7 +5,7 @@ purpose: Initial wrapper where customer can order his requirements
 ## TODO: Include pyInquirer and generate bill when each item got added instantly..
 import argparse
 
-from src.bins.GenerateBill import GenerateBill
+from bins.GenerateBill import GenerateBill
 
 if __name__ == '__main__':
     print("###################          Welcome to Farmer's Market             ####################\n"
@@ -29,15 +29,16 @@ if __name__ == '__main__':
                         default=0, required=False)
 
     args = parser.parse_args()
-    # Prepare the cart_items list to pass to CartValue class
-    cart_items = {
-        "Chai": dict({"code": "CH1", "count": int(args.Chai)}),
-        "Apples": dict({"code": "AP1", "count": int(args.Apples)}),
-        "Coffee": dict({"code": "CF1", "count": int(args.Coffee)}),
-        "Milk": dict({"code": "MK1", "count": int(args.Milk)}),
-        "Oatmeal": dict({"code": "OM1", "count": int(args.Oatmeal)})
+    # Prepare the cart_items list to pass to Products class
+    cart_counts = {
+        "Chai" : int(args.Chai),
+        "Apples": int(args.Apples),
+        "Coffee": int(args.Coffee),
+        "Milk": int(args.Milk),
+        "Oatmeal": int(args.Oatmeal)
     }
-    bill = GenerateBill(cart_items)
+    bill = GenerateBill()
+    bill._update_products_with_count(cart_counts)
     gt, totalbilling = bill.return_current_cart_bill()
     print("## Grand Total after applying possible offers is: {}".format(gt))
     print(totalbilling)
