@@ -53,8 +53,10 @@ docker.io/venkypydevops/farmersmarket:fmkt_2.0`
     Repo-url : https://hub.docker.com/layers/203913965/venkypydevops/farmersmarket/fmkt_2.0/images/sha256-fa7c31ef0d2fafb6c959a5243bb9b24e243df4f8c26d6a618667e9cd1e9866b2?context=repo
 
 7. Run the below command to place the order 
-    ```python3 PlaceOrder.py --hlep``` which will return the usage as below
-    ```-ch CHAI, --chai CHAI 
+    ```python3 PlaceOrder.py --hlep``` 
+    which will return the usage as below
+    ```
+    -ch CHAI, --chai CHAI 
                       provide required number of chai
     -ap APPLES, --apples APPLES
                       provide required number of apples
