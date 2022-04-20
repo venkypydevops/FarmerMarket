@@ -25,9 +25,6 @@ class Products:
         self.products["Milk"]["count"] = cart_counts["Milk"]
         self.products["Oatmeal"]["count"] = cart_counts["Oatmeal"]
 
-        print("## After seeting the count in Products: {}".format(self.products))
-        print("## coffee count: {}".format(self.products['Coffee']['count']))
-
     def _get_chai_code(self):
         """
         :return: returns code of the chai product

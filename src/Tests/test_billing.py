@@ -1,5 +1,5 @@
-from src.bins.GenerateBill import GenerateBill
-from src.conf.Products import Products
+from src.GenerateBill import GenerateBill
+from src.Products import Products
 
 def test_billing_case1():
     products = Products()

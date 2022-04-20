@@ -1,7 +1,7 @@
 import logging
 import traceback
 
-from conf.Products import Products
+from Products import Products
 from tabulate import tabulate
 
 class GenerateBill():

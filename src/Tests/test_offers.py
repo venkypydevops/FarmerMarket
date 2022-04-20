@@ -1,5 +1,5 @@
-from src.bins.GenerateBill import GenerateBill
-from src.conf.Products import Products
+from src.GenerateBill import GenerateBill
+from src.Products import Products
 
 def test_offers_case1():
     products = Products()
@@ -12,7 +12,6 @@ def test_offers_case1():
     }
     products._set_cart_items_count(cart_counts)
     BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
-    print(BOGO, APPL, CHMK, APOM)
     assert APPL == 1
     assert BOGO == 1
     assert CHMK == 1
@@ -29,7 +28,6 @@ def test_offers_case2():
     }
     products._set_cart_items_count(cart_counts)
     BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
-    print(BOGO, APPL, CHMK, APOM)
     assert APPL == 0
     assert BOGO == 0
     assert CHMK == 0
@@ -46,7 +44,6 @@ def test_offers_case3():
     }
     products._set_cart_items_count(cart_counts)
     BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
-    print(BOGO, APPL, CHMK, APOM)
     assert APPL == 0
     assert BOGO == 0
     assert CHMK == 1
@@ -63,7 +60,6 @@ def test_offers_case4():
     }
     products._set_cart_items_count(cart_counts)
     BOGO, APPL, CHMK, APOM = GenerateBill().get_offers()
-    print(BOGO, APPL, CHMK, APOM)
     assert APPL == 1
     assert BOGO == 1
     assert CHMK == 0
