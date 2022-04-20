@@ -2,6 +2,13 @@ FROM ubuntu:18.04
 
 WORKDIR /FarmerMarket
 
+# Update apt packages
+RUN apt update
+RUN apt upgrade -y
+
+# Install vim
+RUN apt install vim -y
+
 # Install python 3.7
 RUN apt install python3.7 -y
 
@@ -20,6 +27,7 @@ COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
 COPY src/ .
+COPY Tests/ .
 
 CMD [ "python3", "./PlaceOrder.py" ]
 
