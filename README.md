@@ -42,7 +42,17 @@ How to place the Order ?
     ```docker ps```
 5. Go to the live container and place the order
     ```docker exec -it <container-id> /bin/bash```
-6. Run the below command to place the order 
+6. (OR) Directly get the container from public-docker-hub by pulling it to local repo
+
+    `C:\Users\user\OneDrive\Desktop\DockerHub>docker pull venkypydevops/farmersmarket:fmkt_2.0
+fmkt_2.0: Pulling from venkypydevops/farmersmarket
+Digest: sha256:fa7c31ef0d2fafb6c959a5243bb9b24e243df4f8c26d6a618667e9cd1e9866b2
+Status: Image is up to date for venkypydevops/farmersmarket:fmkt_2.0
+docker.io/venkypydevops/farmersmarket:fmkt_2.0`
+
+    Repo-url : https://hub.docker.com/layers/203913965/venkypydevops/farmersmarket/fmkt_2.0/images/sha256-fa7c31ef0d2fafb6c959a5243bb9b24e243df4f8c26d6a618667e9cd1e9866b2?context=repo
+
+7. Run the below command to place the order 
     ```python3 PlaceOrder.py --hlep``` which will return the usage as below
     ```-ch CHAI, --chai CHAI 
                       provide required number of chai
